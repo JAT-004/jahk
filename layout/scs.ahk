@@ -9,10 +9,18 @@
 ; 'Console'
 toggleConsole := "{^}"
 
+; disable default console key
+#InputLevel 1
+^::return
+#InputLevel 0
+
 ; true or false status for many functions
 statusMap := Map()
 
 #HotIf WinActive("Euro Truck Simulator 2") or WinActive("American Truck Simulator")
+
+; 'Console'
+^^::SendInput "{^}"
 
 ; 'Hazard Warning'
 NumpadEnter::toggle("lights_hazard", "{NumpadEnter}", 1)
@@ -21,6 +29,7 @@ o::toggle("lights_beacon", "{o}", 2)
 
 ; 'Suspension Reset'
 r::activate("suspension_reset", "{r}", 1)
+
 
 #HotIf
 
