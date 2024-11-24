@@ -27,17 +27,40 @@ NumpadEnter::toggle("lights_hazard", "{NumpadEnter}", 1)
 ; 'Beacon'
 o::toggle("lights_beacon", "{o}", 2)
 
+; KEY DEFINITION
+
+; load original key definition
+#Include ..\scs\key_original.ahk
+; load remapped key definition
+#Include ..\scs\key_remap.ahk
+; load user configuration file
+#Include ..\scs\config.ahk
+
+_suspensionFrontUp() {
+    suspension([suspension_front_up], "suspension_front_up")
+}
+_suspensionFrontDown() {
+    suspension([suspension_front_down], "suspension_front_down")
+}
+
+_suspensionRearUp() {
+    suspension([suspension_rear_up], "suspension_rear_up")
+}
+_suspensionRearDown() {
+    suspension([suspension_rear_down], "suspension_rear_down")
+}
+
+_suspensionUp() {
+    suspension([suspension_rear_up, suspension_front_up], "suspension_up")
+}
+_suspensionDown() {
+    suspension([suspension_rear_down, suspension_front_down], "suspension_down")
+}
+
+; END KEY DEFINITION
+
 ; 'Suspension Reset'
 r::activate("suspension_reset", "{r}", 1)
-
-; 'Rear Suspension Up'
-q::holdKey(["q"], 3500, "suspension_up_rear")
-; 'Rear Suspension Down'
-a::holdKey(["a"], 3500, "suspension_down_rear")
-; 'Rear Suspension Up' and 'Front Suspension Up'
-w::holdKey(["q", "w"], 3500, "suspension_up")
-; 'Rear Suspension Down' and 'Front Suspension Down'
-s::holdKey(["a", "s"], 3500, "suspension_down")
 
 #HotIf
 
@@ -78,29 +101,47 @@ toggle(function, input, sound) {
     SendInput input
 }
 
-; hold a key for a specific time
+; FUNCTION
+
+; hold one or more keys for a specific time
 ; inputArray
 ; list of inputs that should be hold at the same time
-; time
+; audioName
+; name of the audio file, or empty string
+; duration
 ; duration in ms
-; sound
-; name of the function used for playing sound, or empty string
-holdKey(inputArray, time, function) {
-    if(function) {
-        SoundPlay "..\audio\scs\" function ".mp3"
+holdKeys(inputArray, audioName, duration) {
+    if(audioName) {
+        SoundPlay "..\audio\scs\" audioName ".mp3"
     }
 
     for key in inputArray {
         keyDown := "{" key " down}"
         Send keyDown
     }
-    Sleep time
+    Sleep duration
 
     for key in inputArray {
         keyUp := "{" key " up}"
         Send keyUp
     }
 }
+
+; adjust suspension by holding relevant keys automatically
+; inputArray
+; list of inputs that should be hold at the same time
+; audioName
+; name of the audio file
+suspension(inputArray, audioName) {
+    if(suspensionAudio) {
+        holdKeys(inputArray, audioName, suspensionDuration)
+    }
+    else {
+        holdKeys(inputArray, "", suspensionDuration)
+    }
+}
+
+; END FUNCTION
 
 ; invert and return status
 status(function) {
