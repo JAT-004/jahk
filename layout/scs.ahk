@@ -30,6 +30,14 @@ o::toggle("lights_beacon", "{o}", 2)
 ; 'Suspension Reset'
 r::activate("suspension_reset", "{r}", 1)
 
+; 'Rear Suspension Up'
+q::holdKey(["q"], 3500, "suspension_up_rear")
+; 'Rear Suspension Down'
+a::holdKey(["a"], 3500, "suspension_down_rear")
+; 'Rear Suspension Up' and 'Front Suspension Up'
+w::holdKey(["q", "w"], 3500, "suspension_up")
+; 'Rear Suspension Down' and 'Front Suspension Down'
+s::holdKey(["a", "s"], 3500, "suspension_down")
 
 #HotIf
 
@@ -68,6 +76,30 @@ toggle(function, input, sound) {
         SoundPlay "..\audio\scs\" function "_deactivate.mp3"
     }
     SendInput input
+}
+
+; hold a key for a specific time
+; inputArray
+; list of inputs that should be hold at the same time
+; time
+; duration in ms
+; sound
+; name of the function used for playing sound, or empty string
+holdKey(inputArray, time, function) {
+    if(function) {
+        SoundPlay "..\audio\scs\" function ".mp3"
+    }
+
+    for key in inputArray {
+        keyDown := "{" key " down}"
+        Send keyDown
+    }
+    Sleep time
+
+    for key in inputArray {
+        keyUp := "{" key " up}"
+        Send keyUp
+    }
 }
 
 ; invert and return status
