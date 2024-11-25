@@ -42,6 +42,19 @@ _wipersAutomatic() {
     sendKeys([wipers])
 }
 
+_adaptiveCruiseControl() {
+    if(status("cruiseControlAdaptive")) {
+        audioIf("adaptive_cruise_control_activate", adaptiveCruiseControlAudio)
+        count := (40 - adaptiveCruiseControlDistance) / 10 + 1
+        loopKey(adaptive_cruise_control_mode, count, 5)
+    }
+    else {
+        audioIf("adaptive_cruise_control_deactivate", adaptiveCruiseControlAudio)
+        count := adaptiveCruiseControlDistance / 10 - 1
+        loopKey(adaptive_cruise_control_mode, count, 5)
+    }
+}
+
 _suspensionFrontUp() {
     suspension([suspension_front_up], "suspension_front_up")
 }
@@ -177,6 +190,18 @@ loopKey(input, count, delay) {
     Sleep delay
 }
 
+; invert and return status, only true or false
+; statusName
+; identifier for the status
+status(statusName) {
+    if !statusMap.Has(statusName) {
+        statusMap.Set(statusName, true)
+        return true
+    }
+    statusMap.Set(statusName, !statusMap.Get(statusName))
+    return statusMap.Get(statusName)
+}
+
 ; adjust suspension by holding relevant keys automatically
 ; inputArray
 ; list of inputs that should be hold at the same time
@@ -188,15 +213,5 @@ suspension(inputArray, audioName) {
 }
 
 ; END FUNCTION
-
-; invert and return status
-status(function) {
-    if !statusMap.Has(function) {
-        statusMap.Set(function, true)
-        return true
-    }
-    statusMap.Set(function, !statusMap.Get(function))
-    return statusMap.Get(function)
-}
 
 #Include ..\exit\exit.ahk

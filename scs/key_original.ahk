@@ -4,6 +4,13 @@ wipers := "ä"
 ; 'Wipers Back'
 wipers_back := "ö"
 
+; 'Adaptive Cruise Control Mode'
+adaptive_cruise_control_mode := "Numpad3"
+; 'Cruise Control Speed Increase'
+cruise_control_speed_increase := "Numpad1"
+; 'Cruise Control Speed Decrease'
+cruise_control_speed_decrease := "Numpad0"
+
 ; 'Front Suspension Up'
 suspension_front_up := "w"
 ; 'Front Suspension Down'

@@ -2,6 +2,9 @@
 ; Wiper Automatic
 ä::_wipersAutomatic()
 
+; Adaptive Cruise Control
+Numpad3::_adaptiveCruiseControl()
+
 ; Front Suspension Up
 ; w::_suspensionFrontUp()
 ; Front Suspension Down
