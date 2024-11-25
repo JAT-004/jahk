@@ -36,6 +36,12 @@ o::toggle("lights_beacon", "{o}", 2)
 ; load user configuration file
 #Include ..\scs\config.ahk
 
+_wipersAutomatic() {
+    audioIf("wipers_automatic", wipersAudio)
+    loopKey(wipers_back, 3, 5)
+    sendKeys([wipers])
+}
+
 _suspensionFrontUp() {
     suspension([suspension_front_up], "suspension_front_up")
 }
@@ -57,12 +63,14 @@ _suspensionDown() {
     suspension([suspension_rear_down, suspension_front_down], "suspension_down")
 }
 
-; END KEY DEFINITION
-
-; 'Suspension Reset'
-r::activate("suspension_reset", "{r}", 1)
+_suspensionReset() {
+    audioIf("suspension_reset", suspensionAudio)
+    sendKeys([suspension_reset])
+}
 
 #HotIf
+
+; END KEY DEFINITION
 
 ; activate a function
 ; function
@@ -103,20 +111,37 @@ toggle(function, input, sound) {
 
 ; FUNCTION
 
-; hold one or more keys for a specific time
-; inputArray
-; list of inputs that should be hold at the same time
+; play audio if name is not an empty string
 ; audioName
 ; name of the audio file, or empty string
-; duration
-; duration in ms
-holdKeys(inputArray, audioName, duration) {
+audio(audioName) {
     if(audioName) {
         SoundPlay "..\audio\scs\" audioName ".mp3"
     }
+}
 
+; play audio if the status is true
+; audioName
+; name of the audio file, or empty string
+; status
+; true when audio should play
+audioIf(audioName, status) {
+    if(status) {
+        audio(audioName)
+    }
+}
+
+; hold one or more keys for a specific time
+; inputArray
+; list of inputs that should be hold at the same time
+; duration
+; duration in ms
+holdKeys(inputArray, duration) {
     for key in inputArray {
         keyDown := "{" key " down}"
+        keyUp := "{" key " up}"
+
+        Send keyUp
         Send keyDown
     }
     Sleep duration
@@ -127,18 +152,39 @@ holdKeys(inputArray, audioName, duration) {
     }
 }
 
+; send one or more keys
+; inputArray
+; list of inputs that should be send
+sendKeys(inputArray) {
+    for key in inputArray {
+        inputKey := "{" key "}"
+        Send inputKey
+    }
+}
+
+; repeat a key several times
+; input
+; the input key
+; count
+; number of repetitions
+; delay
+; delay in ms between keys
+loopKey(input, count, delay) {
+    loop count {
+        Sleep delay
+        sendKeys([input])
+    }
+    Sleep delay
+}
+
 ; adjust suspension by holding relevant keys automatically
 ; inputArray
 ; list of inputs that should be hold at the same time
 ; audioName
 ; name of the audio file
 suspension(inputArray, audioName) {
-    if(suspensionAudio) {
-        holdKeys(inputArray, audioName, suspensionDuration)
-    }
-    else {
-        holdKeys(inputArray, "", suspensionDuration)
-    }
+    audioIf(audioName, suspensionAudio)
+    holdKeys(inputArray, suspensionDuration)
 }
 
 ; END FUNCTION

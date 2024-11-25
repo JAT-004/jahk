@@ -1,4 +1,7 @@
 
+; Wiper Automatic
+ä::_wipersAutomatic()
+
 ; Front Suspension Up
 ; w::_suspensionFrontUp()
 ; Front Suspension Down
@@ -13,3 +16,6 @@ a::_suspensionRearDown()
 w::_suspensionUp()
 ; Suspension Down
 s::_suspensionDown()
+
+; Suspension Reset
+r::_suspensionReset()

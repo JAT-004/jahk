@@ -1,4 +1,9 @@
 
+; 'Wipers'
+wipers := "ä"
+; 'Wipers Back'
+wipers_back := "ö"
+
 ; 'Front Suspension Up'
 suspension_front_up := "w"
 ; 'Front Suspension Down'
