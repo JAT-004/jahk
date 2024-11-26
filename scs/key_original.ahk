@@ -4,6 +4,9 @@ wipers := "ä"
 ; 'Wipers Back'
 wipers_back := "ö"
 
+; 'Hazard Warning'
+hazard_warning := "NumpadEnter"
+
 ; 'Adaptive Cruise Control Mode'
 adaptive_cruise_control_mode := "Numpad3"
 ; 'Cruise Control Speed Increase'

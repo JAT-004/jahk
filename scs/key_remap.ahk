@@ -2,6 +2,9 @@
 ; Wiper Automatic
 ä::_wipersAutomatic()
 
+; Hazard Warning
+;NumpadEnter::_hazardWarning()
+
 ; Adaptive Cruise Control
 Numpad3::_adaptiveCruiseControl()
 
@@ -22,3 +25,6 @@ s::_suspensionDown()
 
 ; Suspension Reset
 r::_suspensionReset()
+
+; Teleport
+F9::_teleport()

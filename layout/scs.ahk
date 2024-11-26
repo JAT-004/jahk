@@ -81,6 +81,10 @@ _suspensionReset() {
     sendKeys([suspension_reset])
 }
 
+_teleport() {
+    SendInput "^{F9}"
+}
+
 #HotIf
 
 ; END KEY DEFINITION
