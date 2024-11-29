@@ -81,6 +81,10 @@ _suspensionReset() {
     sendKeys([suspension_reset])
 }
 
+_freeCamera() {
+    SendInput "0"
+}
+
 _teleport() {
     SendInput "^{F9}"
 }

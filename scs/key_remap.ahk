@@ -26,5 +26,8 @@ s::_suspensionDown()
 ; Suspension Reset
 r::_suspensionReset()
 
+; Free Camera
+NumpadDiv::_freeCamera()
+
 ; Teleport
 F9::_teleport()
