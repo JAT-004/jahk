@@ -20,12 +20,13 @@ cruiseControl_delay := 5
 
 ; cruise control
 3::cruiseControl(30)
-4::cruiseControl(40)
-5::cruiseControl(50)
-6::cruiseControl(60)
-7::cruiseControl(70)
-8::cruiseControl(80)
-9::cruiseControl(90)
+4::cruiseControl(35)
+5::cruiseControl(40)
+6::cruiseControl(45)
+7::cruiseControl(50)
+8::cruiseControl(55)
+9::cruiseControl(60)
+0::cruiseControl(65)
 
 #HotIf
 
